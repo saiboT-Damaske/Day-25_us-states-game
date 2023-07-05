@@ -24,11 +24,12 @@ correctly_guessed_states = []
 while game_is_on:
     guess = screen.textinput(title=f"Guess a state ({correct_states}/50)", prompt="name:").title()
     turtle.onscreenclick(get_mouse_click_coor)
+
     if guess == "Exit":
-        missing_states = []
-        for state in data.state:
-            if state not in correctly_guessed_states:
-                missing_states.append(state)
+        missing_states = [state for state in data.state if state not in correctly_guessed_states]
+        # for state in data.state:
+        #     if state not in correctly_guessed_states:
+        #         missing_states.append(state)
         new_data = pd.DataFrame(missing_states)
         new_data.to_csv("missing_states.csv")
         game_is_on = False
